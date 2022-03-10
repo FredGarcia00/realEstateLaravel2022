@@ -1,6 +1,19 @@
-@use'./base/_reset.scss';
-@use'./base/_utilities.scss';
-@use'./base/_variables.scss';
-@use'./vendors/bootstrap/scss/bootstrap.scss';
-@use'./layouts/main-layout.scss';
-@use'./components/header.scss';
+@use "./base/_reset.scss";
+@use "./base/_utilities.scss";
+@use "./base/_variables.scss";
+@use "./vendors/bootstrap/scss/bootstrap.scss";
+@use "./layouts/main-layout.scss";
+@use "./layouts/_account-layout.scss";
+@use "./components/header.scss";
+@use "./components/hero.scss";
+@use "./pages/_listings.scss";
+@use "./pages/_show-status.scss";
+@use "./pages/_auth.scss";
+@use "./pages/_single-listing.scss";
+
+
+.error-sub-text {
+    padding: 10px 0;
+    color:red;
+    font-size: .8rem;
+}

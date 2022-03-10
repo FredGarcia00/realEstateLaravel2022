@@ -12,32 +12,64 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Home page
-Route::get('/', function () {
-    return view('welcome');
-});
-// Show all listings
-Route::get('/{property_type}/{listing_type}/', function () {
-    return view('welcome');
-});
-// Single listing
-Route::get('/listing/{slug}/{id}', function () {
-    return view('welcome');
-});
-// user login
-Route::get('/login', function () {
-    return view('welcome');
-});
-// user register
-Route::get('/register', function () {
-    return view('welcome');
-});
-// user saved listings
-Route::get('/account/saved', function () {
-    return view('welcome');
-});
-// user showing status
-Route::get('/account/show-status', function () {
-    return view('welcome');
+// admin dashboard
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.'
+], function() {
+    // admin dashboard
+    Route::get('/', function () {
+        return view('admin/dashboard');
+    })->name('dashboard');
+
+    // Listings page
+    Route::group([
+        'prefix' => 'listings',
+        'as' => 'listings.'
+    ], function() {
+        Route::get('/', [\App\Http\Controllers\Admin\ListingController::class, 'index'])->name('index');
+
+        Route::get('/create', [\App\Http\Controllers\Admin\ListingController::class, 'create'])->name('create');
+
+        Route::post('/', [\App\Http\Controllers\Admin\ListingController::class, 'store'])->name('store');
+
+        Route::get('/{id}/edit', [\App\Http\Controllers\Admin\ListingController::class, 'edit'])->name('edit');
+    });
+      
 });
 
+Route::get('/', function () {
+    return view('pages/home');
+});
+
+
+// Single listing
+Route::get('/listing/{slug}/{id}', function () {
+    return view('pages/single-listing');
+});
+
+// Show all listings
+Route::get('/{property_type}/{listing_type}/{city}', function () {
+    return view('pages/listings');
+})->name('listings');
+
+// User saved listings
+Route::get('/account', function () {
+    return view('pages/saved-listings');
+})->name('account');
+
+// User showing status
+Route::get('/account/show-status', function () {
+    return view('pages/show-status');
+})->name('show-status');
+
+
+
+
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
